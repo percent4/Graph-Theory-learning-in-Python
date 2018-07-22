@@ -2,7 +2,7 @@ from graph import Vertex, Edge, Graph
 
 g = Graph(directed=True)
 # 顶点列表
-vertex_list = ['a', 'b', 'c', 'd', 'e']
+vertex_list = ['a', 'b', 'c', 'd', 'e', 'f']
 # 在图中插入顶点
 for vertex in vertex_list:
     g.insert_vertex(vertex)
@@ -12,11 +12,12 @@ vertices = list(g.vertices())
 vertex_dict = {name:vertex for name, vertex in zip(vertex_list, vertices)}
 # 从对应顶点连出去的边
 edges_map ={
-            'a': [('b', 1), ('c', 4)],
-            'b': [('c', 2), ('d', 1)],
-            'c': [('d', 3), ('e', 2)],
-            'd': [('e', 1)],
-            'e': []
+            'a': [('b', 2), ('f', 9)],
+            'b': [('c', 1), ('d', 2), ('f', 6)],
+            'c': [('d', 7)],
+            'd': [('e', 2), ('f', 3)],
+            'e': [('f', 4)],
+            'f': []
             }
 
 # 在图中插入边
@@ -61,7 +62,7 @@ def topological_sort(g):
 
 topo = topological_sort(g)
 topological_order = [vertex.element() for vertex in topo]
-print('该图的拓扑序列为 %s.' %topological_order)
+print('该图的拓扑序列为 %s.'%topological_order)
 
 # W: 邻接表(带权值), s: 起始点, t: 终止点
 # 求解DAG上的最短路径(shortest-path)
@@ -94,5 +95,5 @@ def dag_sp(g, edges_map, s, t):
 
     return d[t], path
 
-sp_length, path = dag_sp(g=g, edges_map=edges_map, s='a', t='e')
+sp_length, path = dag_sp(g=g, edges_map=edges_map, s='a', t='f')
 print('最短路径为：%s, 其长度为：%s'%(path, sp_length))
